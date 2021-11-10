@@ -24,11 +24,8 @@
 # Helper Dependencies
 import numpy as np
 import pandas as pd
-from sklearn.preprocessing import LabelEncoder
 import pickle
 import json
-
-
 
 def _preprocess_data(data):
     """Private helper function to preprocess data for model prediction.
@@ -61,35 +58,7 @@ def _preprocess_data(data):
     # ---------------------------------------------------------------
 
     # ----------- Replace this code with your own preprocessing steps --------
-
-    #feature_vector_df['Valencia_pressure'] = feature_vector_df['Valencia_pressure'].fillna(feature_vector_df['Valencia_pressure'].mode()[0])
-    feature_vector_df['Valencia_pressure'] =feature_vector_df['Valencia_pressure'].fillna(feature_vector_df['Valencia_pressure'].mean(), inplace = True)
-    #Encoding Categorical Data
-    features = [x for x in feature_vector_df.columns if feature_vector_df[x].dtype=="object"]
-    
-    le=LabelEncoder()
-    
-    feature_vector_df[features] =  feature_vector_df[features].apply(lambda col:
-                                  le.fit_transform(col.astype(str)),
-                                  axis=0, result_type='expand')
-
-
-
-    #predict_vector = feature_vector_df[['Valencia_snow_3h','Barcelona_pressure','Bilbao_snow_3h','Bilbao_rain_1h','Seville_rain_1h']]
-    predict_vector = feature_vector_df[['Madrid_wind_speed', 'Valencia_wind_deg', 'Bilbao_rain_1h',
-       'Valencia_wind_speed', 'Seville_humidity', 'Madrid_humidity',
-       'Bilbao_clouds_all', 'Bilbao_wind_speed', 'Seville_clouds_all',
-       'Bilbao_wind_deg', 'Barcelona_wind_speed', 'Barcelona_wind_deg',
-       'Seville_pressure', 'Seville_rain_1h', 'Bilbao_snow_3h',
-       'Barcelona_pressure', 'Seville_rain_3h', 'Madrid_rain_1h',
-       'Barcelona_rain_3h', 'Valencia_snow_3h', 'Madrid_weather_id',
-       'Barcelona_weather_id', 'Bilbao_pressure', 'Seville_weather_id',
-       'Valencia_pressure', 'Seville_temp_max', 'Madrid_pressure',
-       'Valencia_temp_max', 'Valencia_temp', 'Bilbao_weather_id',
-       'Seville_temp', 'Valencia_humidity', 'Valencia_temp_min',
-       'Barcelona_temp_max', 'Madrid_temp_max', 'Barcelona_temp',
-       'Bilbao_temp_min', 'Bilbao_temp', 'Barcelona_temp_min',
-       'Bilbao_temp_max', 'Seville_temp_min', 'Madrid_temp', 'Madrid_temp_min']]
+    predict_vector = feature_vector_df[['Madrid_wind_speed','Bilbao_rain_1h','Valencia_wind_speed']]
     # ------------------------------------------------------------------------
 
     return predict_vector
